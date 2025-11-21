@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from "react";
-import { cn } from "@/utils/cn";
+import React, { useEffect, useState } from "react";
+import { Card, CardContent } from "@/components/atoms/Card";
 import ApperIcon from "@/components/ApperIcon";
 import Button from "@/components/atoms/Button";
 import Input from "@/components/atoms/Input";
-import { Card, CardContent } from "@/components/atoms/Card";
 import Avatar from "@/components/atoms/Avatar";
 import Badge from "@/components/atoms/Badge";
 import GradeIndicator from "@/components/molecules/GradeIndicator";
 import AttendanceStatus from "@/components/molecules/AttendanceStatus";
+import { cn } from "@/utils/cn";
 
 const StudentModal = ({ student, isOpen, onClose, onSave, createMode = false }) => {
   const [activeTab, setActiveTab] = useState("info");
@@ -273,7 +273,7 @@ const handleSave = () => {
           </h2>
           <div className="flex items-center space-x-2">
 {activeTab === "info" && (
-              <>
+              <div className="flex items-center space-x-2">
                 {(editMode || createMode) ? (
                   <>
                     <Button variant="outline" size="sm" onClick={handleCancel}>
@@ -288,7 +288,7 @@ const handleSave = () => {
                     Edit
                   </Button>
                 )}
-              </>
+              </div>
             )}
             <button
               onClick={onClose}
