@@ -1,63 +1,230 @@
-import notesData from "@/services/mockData/notes.json";
-
-// Simulate API delay
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-let notes = [...notesData];
+import { getApperClient } from "@/services/apperClient";
 
 export const noteService = {
   async getAll() {
-    await delay(300);
-    return notes.map(note => ({ ...note }));
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const response = await apperClient.fetchRecords('notes_c', {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "studentId_c"}},
+          {"field": {"Name": "category_c"}},
+          {"field": {"Name": "content_c"}},
+          {"field": {"Name": "createdDate_c"}},
+          {"field": {"Name": "Tags"}}
+        ],
+        orderBy: [{
+          fieldName: "createdDate_c",
+          sorttype: "DESC"
+        }]
+      });
+
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      return response.data || [];
+    } catch (error) {
+      console.error("Error fetching notes:", error?.response?.data?.message || error);
+      throw error;
+    }
   },
 
   async getById(id) {
-    await delay(200);
-    const note = notes.find(note => note.Id === parseInt(id));
-    if (!note) {
-      throw new Error("Note not found");
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const response = await apperClient.getRecordById('notes_c', id, {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "studentId_c"}},
+          {"field": {"Name": "category_c"}},
+          {"field": {"Name": "content_c"}},
+          {"field": {"Name": "createdDate_c"}},
+          {"field": {"Name": "Tags"}}
+        ]
+      });
+
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      return response.data;
+    } catch (error) {
+      console.error(`Error fetching note ${id}:`, error?.response?.data?.message || error);
+      throw error;
     }
-    return { ...note };
   },
 
   async getByStudentId(studentId) {
-    await delay(250);
-    return notes
-      .filter(note => note.studentId === studentId)
-      .map(note => ({ ...note }))
-      .sort((a, b) => new Date(b.createdDate) - new Date(a.createdDate));
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const response = await apperClient.fetchRecords('notes_c', {
+        fields: [
+          {"field": {"Name": "Name"}},
+          {"field": {"Name": "studentId_c"}},
+          {"field": {"Name": "category_c"}},
+          {"field": {"Name": "content_c"}},
+          {"field": {"Name": "createdDate_c"}},
+          {"field": {"Name": "Tags"}}
+        ],
+        where: [{
+          FieldName: "studentId_c",
+          Operator: "EqualTo",
+          Values: [parseInt(studentId)]
+        }],
+        orderBy: [{
+          fieldName: "createdDate_c",
+          sorttype: "DESC"
+        }]
+      });
+
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      return response.data || [];
+    } catch (error) {
+      console.error("Error fetching notes by student ID:", error?.response?.data?.message || error);
+      throw error;
+    }
   },
 
   async create(noteData) {
-    await delay(400);
-    const maxId = notes.reduce((max, note) => Math.max(max, note.Id), 0);
-    const newNote = {
-      ...noteData,
-      Id: maxId + 1,
-      createdDate: new Date().toISOString()
-    };
-    notes.push(newNote);
-    return { ...newNote };
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const payload = {
+        records: [{
+          Name: `Note - ${noteData.category_c || noteData.category || 'General'}`,
+          studentId_c: parseInt(noteData.studentId_c || noteData.studentId),
+          category_c: noteData.category_c || noteData.category,
+          content_c: noteData.content_c || noteData.content,
+          createdDate_c: noteData.createdDate_c || new Date().toISOString(),
+          ...(noteData.Tags && { Tags: noteData.Tags })
+        }]
+      };
+
+      const response = await apperClient.createRecord('notes_c', payload);
+
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success);
+        const failed = response.results.filter(r => !r.success);
+        
+        if (failed.length > 0) {
+          console.error(`Failed to create ${failed.length} notes:`, failed);
+          throw new Error(failed[0].message || "Failed to create note");
+        }
+
+        return successful[0]?.data;
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error("Error creating note:", error?.response?.data?.message || error);
+      throw error;
+    }
   },
 
   async update(id, noteData) {
-    await delay(300);
-    const index = notes.findIndex(note => note.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Note not found");
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const payload = {
+        records: [{
+          Id: parseInt(id),
+          ...(noteData.Name && { Name: noteData.Name }),
+          ...(noteData.studentId_c && { studentId_c: parseInt(noteData.studentId_c) }),
+          ...(noteData.category_c && { category_c: noteData.category_c }),
+          ...(noteData.content_c && { content_c: noteData.content_c }),
+          ...(noteData.createdDate_c && { createdDate_c: noteData.createdDate_c }),
+          ...(noteData.Tags && { Tags: noteData.Tags })
+        }]
+      };
+
+      const response = await apperClient.updateRecord('notes_c', payload);
+
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success);
+        const failed = response.results.filter(r => !r.success);
+        
+        if (failed.length > 0) {
+          console.error(`Failed to update ${failed.length} notes:`, failed);
+          throw new Error(failed[0].message || "Failed to update note");
+        }
+
+        return successful[0]?.data;
+      }
+      
+      return response.data;
+    } catch (error) {
+      console.error("Error updating note:", error?.response?.data?.message || error);
+      throw error;
     }
-    notes[index] = { ...notes[index], ...noteData };
-    return { ...notes[index] };
   },
 
   async delete(id) {
-    await delay(200);
-    const index = notes.findIndex(note => note.Id === parseInt(id));
-    if (index === -1) {
-      throw new Error("Note not found");
+    try {
+      const apperClient = getApperClient();
+      if (!apperClient) {
+        throw new Error("ApperClient not initialized");
+      }
+
+      const response = await apperClient.deleteRecord('notes_c', {
+        RecordIds: [parseInt(id)]
+      });
+
+      if (!response.success) {
+        console.error(response.message);
+        throw new Error(response.message);
+      }
+
+      if (response.results) {
+        const successful = response.results.filter(r => r.success);
+        const failed = response.results.filter(r => !r.success);
+        
+        if (failed.length > 0) {
+          console.error(`Failed to delete ${failed.length} notes:`, failed);
+          throw new Error(failed[0].message || "Failed to delete note");
+        }
+
+        return successful.length > 0;
+      }
+
+      return true;
+    } catch (error) {
+      console.error("Error deleting note:", error?.response?.data?.message || error);
+      throw error;
     }
-    const deletedNote = notes[index];
-    notes.splice(index, 1);
-    return { ...deletedNote };
   }
 };

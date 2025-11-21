@@ -37,8 +37,7 @@ const Header = ({
               onChange={onSearchChange}
             />
           </div>
-
-          {/* Actions */}
+{/* Actions */}
           <div className="flex items-center space-x-2">
             {actions.map((action, index) => (
               <Button
@@ -52,16 +51,16 @@ const Header = ({
               </Button>
             ))}
           </div>
+        </div>
+      </div>
 
-          {/* Notifications */}
-          <button className="p-2 rounded-md text-gray-400 hover:text-gray-600 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-accent-500">
-            <ApperIcon name="Bell" size={20} />
-          </button>
+      <div className="flex items-center space-x-4">
+        <div className="relative">
+        </div>
 
           {/* Profile */}
           <div className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-500 rounded-full flex items-center justify-center">
             <ApperIcon name="User" size={16} className="text-white" />
-          </div>
         </div>
       </div>
       

@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import { Outlet } from "react-router-dom";
+import { useAuth } from "@/layouts/Root";
 import Sidebar from "@/components/organisms/Sidebar";
 import Header from "@/components/organisms/Header";
 
 const Layout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const { logout } = useAuth();
 
   const handleMenuClick = () => {
     setSidebarOpen(true);
@@ -14,8 +16,7 @@ const Layout = () => {
   const handleSidebarClose = () => {
     setSidebarOpen(false);
   };
-
-  return (
+return (
     <div className="min-h-screen bg-gray-50">
       <Sidebar isOpen={sidebarOpen} onClose={handleSidebarClose} />
       
@@ -24,6 +25,14 @@ const Layout = () => {
           onMenuClick={handleMenuClick}
           searchValue={searchValue}
           onSearchChange={setSearchValue}
+          actions={[
+            {
+              label: "Logout",
+              variant: "secondary",
+              icon: "LogOut",
+              onClick: logout
+            }
+          ]}
         />
         
         <main className="flex-1">

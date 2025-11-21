@@ -8,18 +8,18 @@ import GradeIndicator from "@/components/molecules/GradeIndicator";
 import AttendanceStatus from "@/components/molecules/AttendanceStatus";
 
 const StudentCard = ({ student, onClick, className }) => {
-  // Calculate average grade
+  // Calculate average grade - use database field names
   const averageGrade = student.grades?.length > 0 
-    ? Math.round(student.grades.reduce((acc, grade) => acc + (grade.score / grade.maxScore * 100), 0) / student.grades.length)
+    ? Math.round(student.grades.reduce((acc, grade) => acc + (grade.score_c / grade.maxScore_c * 100), 0) / student.grades.length)
     : 0;
 
-  // Get recent attendance status
+  // Get recent attendance status - use database field names
   const recentAttendance = student.attendance?.slice(-5) || [];
   const attendanceRate = recentAttendance.length > 0 
-    ? Math.round((recentAttendance.filter(a => a.status === "present").length / recentAttendance.length) * 100)
+    ? Math.round((recentAttendance.filter(a => a.status_c === "present").length / recentAttendance.length) * 100)
     : 100;
 
-  const statusVariant = student.status === "active" ? "success" : "secondary";
+  const statusVariant = student.status_c === "active" ? "success" : "secondary";
 
   return (
     <Card
@@ -30,20 +30,20 @@ const StudentCard = ({ student, onClick, className }) => {
         <div className="flex items-start justify-between mb-4">
           <div className="flex items-center space-x-3">
             <Avatar
-              src={student.photo}
-              alt={`${student.firstName} ${student.lastName}`}
+              src={student.photo_c?.[0]?.url}
+              alt={`${student.firstName_c} ${student.lastName_c}`}
               size="lg"
-              fallback={`${student.firstName[0]}${student.lastName[0]}`}
+              fallback={`${student.firstName_c?.[0] || 'N'}${student.lastName_c?.[0] || 'A'}`}
             />
             <div>
               <h3 className="font-semibold text-gray-900">
-                {student.firstName} {student.lastName}
+                {student.firstName_c} {student.lastName_c}
               </h3>
-              <p className="text-sm text-gray-500">{student.email}</p>
+              <p className="text-sm text-gray-500">{student.email_c}</p>
             </div>
           </div>
           <Badge variant={statusVariant} size="sm">
-            {student.status}
+            {student.status_c}
           </Badge>
         </div>
 
@@ -69,26 +69,26 @@ const StudentCard = ({ student, onClick, className }) => {
           </div>
         </div>
 
-        {student.tags && student.tags.length > 0 && (
+{student.Tags && student.Tags.length > 0 && (
           <div className="mt-4 flex flex-wrap gap-1">
-            {student.tags.slice(0, 2).map((tag, index) => (
+            {student.Tags.split(',').slice(0, 2).map((tag, index) => (
               <Badge key={index} variant="outline" size="sm">
-                {tag}
+                {tag.trim()}
               </Badge>
             ))}
-            {student.tags.length > 2 && (
+            {student.Tags.split(',').length > 2 && (
               <Badge variant="outline" size="sm">
-                +{student.tags.length - 2}
+                +{student.Tags.split(',').length - 2}
               </Badge>
             )}
           </div>
         )}
 
         <div className="mt-4 flex items-center justify-between text-xs text-gray-500">
-          <span>ID: {student.id}</span>
+          <span>ID: {student.Id}</span>
           <div className="flex items-center">
             <ApperIcon name="Calendar" size={12} className="mr-1" />
-            {new Date(student.enrollmentDate).toLocaleDateString()}
+            {student.enrollmentDate_c ? new Date(student.enrollmentDate_c).toLocaleDateString() : 'N/A'}
           </div>
         </div>
       </CardContent>
