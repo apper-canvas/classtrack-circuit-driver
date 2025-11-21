@@ -9,7 +9,7 @@ import Badge from "@/components/atoms/Badge";
 import GradeIndicator from "@/components/molecules/GradeIndicator";
 import AttendanceStatus from "@/components/molecules/AttendanceStatus";
 
-const StudentModal = ({ student, isOpen, onClose, onSave }) => {
+const StudentModal = ({ student, isOpen, onClose, onSave, createMode = false }) => {
   const [activeTab, setActiveTab] = useState("info");
   const [editMode, setEditMode] = useState(false);
   const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
     tags: []
   });
 
-  useEffect(() => {
+useEffect(() => {
     if (student) {
       setFormData({
         firstName: student.firstName || "",
@@ -31,10 +31,21 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
         status: student.status || "active",
         tags: student.tags || []
       });
+    } else if (createMode) {
+      // Initialize empty form for new student
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        phone: "",
+        status: "active",
+        tags: []
+      });
+      setEditMode(true);
     }
-  }, [student]);
+  }, [student, createMode]);
 
-  if (!isOpen || !student) return null;
+if (!isOpen || (!student && !createMode)) return null;
 
   const tabs = [
     { id: "info", label: "Information", icon: "User" },
@@ -43,8 +54,9 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
     { id: "notes", label: "Notes", icon: "FileText" }
   ];
 
-  const handleSave = () => {
-    onSave?.({ ...student, ...formData });
+const handleSave = () => {
+    const studentData = createMode ? formData : { ...student, ...formData };
+    onSave?.(studentData);
     setEditMode(false);
   };
 
@@ -65,25 +77,27 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
       case "info":
         return (
           <div className="space-y-6">
-            <div className="flex items-center space-x-4">
+<div className="flex items-center space-x-4">
               <Avatar
-                src={student.photo}
-                alt={`${student.firstName} ${student.lastName}`}
+                src={student?.photo}
+                alt={createMode ? "New Student" : `${student?.firstName} ${student?.lastName}`}
                 size="xl"
-                fallback={`${student.firstName[0]}${student.lastName[0]}`}
+                fallback={createMode ? "NS" : `${student?.firstName?.[0] || ""}${student?.lastName?.[0] || ""}`}
               />
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  {student.firstName} {student.lastName}
+                  {createMode ? "New Student" : `${student?.firstName} ${student?.lastName}`}
                 </h3>
-                <p className="text-gray-500">Student ID: {student.id}</p>
-                <Badge variant={student.status === "active" ? "success" : "secondary"}>
-                  {student.status}
-                </Badge>
+                {!createMode && <p className="text-gray-500">Student ID: {student?.id}</p>}
+                {!createMode && (
+                  <Badge variant={student?.status === "active" ? "success" : "secondary"}>
+                    {student?.status}
+                  </Badge>
+                )}
               </div>
             </div>
 
-            {editMode ? (
+{editMode || createMode ? (
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <Input
                   label="First Name"
@@ -111,31 +125,31 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
                 />
               </div>
             ) : (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+<div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <p className="text-sm text-gray-900">{student.email}</p>
+                  <p className="text-sm text-gray-900">{student?.email}</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
-                  <p className="text-sm text-gray-900">{student.phone || "Not provided"}</p>
+                  <p className="text-sm text-gray-900">{student?.phone || "Not provided"}</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Enrollment Date</label>
                   <p className="text-sm text-gray-900">
-                    {new Date(student.enrollmentDate).toLocaleDateString()}
+                    {student?.enrollmentDate ? new Date(student.enrollmentDate).toLocaleDateString() : "N/A"}
                   </p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Status</label>
-                  <Badge variant={student.status === "active" ? "success" : "secondary"}>
-                    {student.status}
+                  <Badge variant={student?.status === "active" ? "success" : "secondary"}>
+                    {student?.status || "active"}
                   </Badge>
                 </div>
               </div>
             )}
 
-            {student.tags && student.tags.length > 0 && (
+{student?.tags && student.tags.length > 0 && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Tags</label>
                 <div className="flex flex-wrap gap-2">
@@ -152,8 +166,8 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
 
       case "grades":
         return (
-          <div className="space-y-4">
-            {student.grades && student.grades.length > 0 ? (
+<div className="space-y-4">
+            {student?.grades && student.grades.length > 0 ? (
               student.grades.map((grade, index) => (
                 <Card key={index}>
                   <CardContent className="p-4">
@@ -183,8 +197,8 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
 
       case "attendance":
         return (
-          <div className="space-y-4">
-            {student.attendance && student.attendance.length > 0 ? (
+<div className="space-y-4">
+            {student?.attendance && student.attendance.length > 0 ? (
               student.attendance.slice(-10).reverse().map((record, index) => (
                 <Card key={index}>
                   <CardContent className="p-4">
@@ -218,8 +232,8 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
 
       case "notes":
         return (
-          <div className="space-y-4">
-            {student.notes && student.notes.length > 0 ? (
+<div className="space-y-4">
+            {student?.notes && student.notes.length > 0 ? (
               student.notes.map((note, index) => (
                 <Card key={index}>
                   <CardContent className="p-4">
@@ -253,27 +267,27 @@ const StudentModal = ({ student, isOpen, onClose, onSave }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl shadow-xl max-w-4xl w-full max-h-[90vh] overflow-hidden">
         {/* Header */}
-        <div className="flex items-center justify-between p-6 border-b border-gray-200">
+<div className="flex items-center justify-between p-6 border-b border-gray-200">
           <h2 className="text-lg font-semibold text-gray-900">
-            {student.firstName} {student.lastName}
+            {createMode ? "Add New Student" : `${student?.firstName} ${student?.lastName}`}
           </h2>
           <div className="flex items-center space-x-2">
-            {activeTab === "info" && (
+{activeTab === "info" && (
               <>
-                {editMode ? (
+{editMode || createMode ? (
                   <>
                     <Button variant="outline" size="sm" onClick={handleCancel}>
                       Cancel
                     </Button>
-                    <Button size="sm" onClick={handleSave}>
-                      Save Changes
+<Button size="sm" onClick={handleSave}>
+                      {createMode ? "Create Student" : "Save Changes"}
                     </Button>
                   </>
-                ) : (
+) : !createMode ? (
                   <Button size="sm" onClick={() => setEditMode(true)} icon="Edit">
                     Edit
                   </Button>
-                )}
+                ) : null}
               </>
             )}
             <button

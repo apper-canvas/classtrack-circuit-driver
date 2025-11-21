@@ -19,8 +19,9 @@ const Students = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedStudent, setSelectedStudent] = useState(null);
+const [selectedStudent, setSelectedStudent] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [createMode, setCreateMode] = useState(false);
   const [viewMode, setViewMode] = useState("grid");
 
   const loadStudents = async () => {
@@ -87,8 +88,15 @@ const Students = () => {
     }
   }, [searchQuery, students]);
 
-  const handleStudentClick = (student) => {
+const handleStudentClick = (student) => {
     setSelectedStudent(student);
+    setCreateMode(false);
+    setIsModalOpen(true);
+  };
+
+  const handleAddStudent = () => {
+    setSelectedStudent(null);
+    setCreateMode(true);
     setIsModalOpen(true);
   };
 
@@ -97,19 +105,27 @@ const Students = () => {
     setSelectedStudent(null);
   };
 
-  const handleSaveStudent = async (studentData) => {
+const handleSaveStudent = async (studentData) => {
     try {
-      await studentService.update(studentData.Id, studentData);
-      
-      // Update local state
-      const updatedStudents = students.map(s => 
-        s.Id === studentData.Id ? { ...s, ...studentData } : s
-      );
-      setStudents(updatedStudents);
-      
-      toast.success("Student updated successfully");
+      if (createMode) {
+        // Create new student
+        const newStudent = await studentService.create(studentData);
+        setStudents(prev => [...prev, newStudent]);
+        toast.success("Student created successfully");
+      } else {
+        // Update existing student
+        await studentService.update(studentData.Id, studentData);
+        
+        // Update local state
+        const updatedStudents = students.map(s => 
+          s.Id === studentData.Id ? { ...s, ...studentData } : s
+        );
+        setStudents(updatedStudents);
+        
+        toast.success("Student updated successfully");
+      }
     } catch (err) {
-      toast.error("Failed to update student");
+      toast.error(createMode ? "Failed to create student" : "Failed to update student");
     }
   };
 
@@ -147,9 +163,9 @@ const Students = () => {
             {viewMode === "grid" ? "List" : "Grid"}
           </Button>
           <Button
-            variant="accent"
+variant="accent"
             icon="UserPlus"
-            onClick={() => toast.info("Add student feature coming soon!")}
+            onClick={handleAddStudent}
           >
             Add Student
           </Button>
@@ -187,8 +203,8 @@ const Students = () => {
             title="No students yet"
             description="Get started by adding your first student to the class roster."
             icon="Users"
-            actionLabel="Add Student"
-            onAction={() => toast.info("Add student feature coming soon!")}
+actionLabel="Add Student"
+            onAction={handleAddStudent}
           />
         )
       ) : (
@@ -209,11 +225,12 @@ const Students = () => {
       )}
 
       {/* Student Detail Modal */}
-      <StudentModal
+<StudentModal
         student={selectedStudent}
         isOpen={isModalOpen}
         onClose={handleCloseModal}
         onSave={handleSaveStudent}
+        createMode={createMode}
       />
     </div>
   );
