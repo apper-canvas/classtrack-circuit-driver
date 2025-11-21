@@ -1,14 +1,14 @@
 import React, { useState } from "react";
-import { cn } from "@/utils/cn";
 import { Card, CardContent, CardHeader } from "@/components/atoms/Card";
 import ApperIcon from "@/components/ApperIcon";
-import AttendanceStatus from "@/components/molecules/AttendanceStatus";
-import Avatar from "@/components/atoms/Avatar";
 import Button from "@/components/atoms/Button";
+import Avatar from "@/components/atoms/Avatar";
+import AttendanceStatus from "@/components/molecules/AttendanceStatus";
+import { cn } from "@/utils/cn";
 
 const AttendanceCalendar = ({ students, attendance, onAttendanceUpdate }) => {
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [selectedStudent, setSelectedStudent] = useState(students[0]?.id || null);
+const [selectedStudent, setSelectedStudent] = useState(students[0]?.Id || null);
 
   const getDaysInMonth = (date) => {
     return new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
@@ -23,17 +23,17 @@ const AttendanceCalendar = ({ students, attendance, onAttendanceUpdate }) => {
   };
 
   const getAttendanceForDate = (studentId, dateStr) => {
-    return attendance.find(a => a.studentId === studentId && a.date === dateStr);
+return attendance.find(a => a.studentId_c === parseInt(studentId) && a.date_c === dateStr);
   };
 
   const updateAttendance = (studentId, date, status) => {
     const existingRecord = getAttendanceForDate(studentId, date);
-    const attendanceData = {
-      id: existingRecord ? existingRecord.id : Date.now(),
-      studentId,
-      date,
-      status,
-      notes: ""
+const attendanceData = {
+      id: existingRecord ? existingRecord.Id : Date.now(),
+      studentId_c: parseInt(studentId),
+      date_c: date,
+      status_c: status,
+      notes_c: ""
     };
     onAttendanceUpdate?.(attendanceData);
   };
@@ -85,13 +85,13 @@ const AttendanceCalendar = ({ students, attendance, onAttendanceUpdate }) => {
     
     return (
       <div className="flex items-center space-x-4">
-        {student && (
+{student && (
           <>
             <Avatar
-              src={student.photo}
-              alt={`${student.firstName} ${student.lastName}`}
+              src={student?.photo_c?.[0]?.url}
+              alt={`${student?.firstName_c} ${student?.lastName_c}`}
               size="sm"
-              fallback={`${student.firstName[0]}${student.lastName[0]}`}
+              fallback={`${student?.firstName_c?.[0] || 'N'}${student?.lastName_c?.[0] || 'A'}`}
             />
             <select
               value={selectedStudent}
@@ -99,8 +99,8 @@ const AttendanceCalendar = ({ students, attendance, onAttendanceUpdate }) => {
               className="flex-1 max-w-xs px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-accent-500 focus:border-accent-500"
             >
               {students.map(student => (
-                <option key={student.id} value={student.id}>
-                  {student.firstName} {student.lastName}
+                <option key={student.Id} value={student.Id}>
+                  {student.firstName_c} {student.lastName_c}
                 </option>
               ))}
             </select>
@@ -181,7 +181,7 @@ const AttendanceCalendar = ({ students, attendance, onAttendanceUpdate }) => {
                 
                 <div className="flex justify-center space-x-1">
                   {["present", "absent", "late"].map(status => {
-                    const isSelected = attendanceRecord?.status === status;
+const isSelected = attendanceRecord?.status_c === status;
                     const statusColors = {
                       present: "bg-green-500 hover:bg-green-600",
                       absent: "bg-red-500 hover:bg-red-600",
@@ -208,9 +208,9 @@ const AttendanceCalendar = ({ students, attendance, onAttendanceUpdate }) => {
                   <div className="absolute top-1 right-1">
                     <div className={cn(
                       "w-2 h-2 rounded-full",
-                      attendanceRecord.status === "present" && "bg-green-500",
-                      attendanceRecord.status === "absent" && "bg-red-500",
-                      attendanceRecord.status === "late" && "bg-yellow-500"
+attendanceRecord.status_c === "present" && "bg-green-500",
+                      attendanceRecord.status_c === "absent" && "bg-red-500",
+                      attendanceRecord.status_c === "late" && "bg-yellow-500"
                     )} />
                   </div>
                 )}

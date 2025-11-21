@@ -79,10 +79,10 @@ const [selectedStudent, setSelectedStudent] = useState(null);
     if (!searchQuery.trim()) {
       setFilteredStudents(students);
     } else {
-      const filtered = students.filter(student =>
-        `${student.firstName} ${student.lastName}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        student.email.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        student.id.includes(searchQuery)
+const filtered = students.filter(student =>
+        `${student.firstName_c} ${student.lastName_c}`.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.email_c.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        student.Id.toString().includes(searchQuery)
       );
       setFilteredStudents(filtered);
     }

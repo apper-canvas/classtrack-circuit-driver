@@ -70,17 +70,17 @@ const Grades = () => {
       const csvData = [
         ["Student ID", "Student Name", "Subject", "Semester", "Score", "Max Score", "Percentage", "Letter Grade"].join(","),
         ...grades.map(grade => {
-          const student = students.find(s => s.Id.toString() === grade.studentId);
-          const percentage = Math.round((grade.score / grade.maxScore) * 100);
+const student = students.find(s => s.Id.toString() === grade.studentId_c);
+          const percentage = Math.round((grade.score_c / grade.maxScore_c) * 100);
           const letterGrade = percentage >= 90 ? "A" : percentage >= 80 ? "B" : percentage >= 70 ? "C" : percentage >= 60 ? "D" : "F";
           
           return [
-            grade.studentId,
-            student ? `${student.firstName} ${student.lastName}` : "Unknown",
-            grade.subject,
-            grade.semester,
-            grade.score,
-            grade.maxScore,
+            grade.studentId_c,
+            student ? `${student.firstName_c} ${student.lastName_c}` : "Unknown",
+            grade.subject_c,
+            grade.semester_c,
+            grade.score_c,
+            grade.maxScore_c,
             percentage,
             letterGrade
           ].join(",");
@@ -187,15 +187,15 @@ const Grades = () => {
         <h3 className="text-lg font-semibold text-gray-900 mb-4">Grade Statistics</h3>
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           <div className="text-center">
-            <div className="text-2xl font-bold text-green-600">
-              {grades.filter(g => (g.score / g.maxScore * 100) >= 90).length}
+<div className="text-2xl font-bold text-green-600">
+              {grades.filter(g => (g.score_c / g.maxScore_c * 100) >= 90).length}
             </div>
             <p className="text-sm text-gray-600">A Grades (90%+)</p>
           </div>
           <div className="text-center">
             <div className="text-2xl font-bold text-blue-600">
               {grades.filter(g => {
-                const percent = g.score / g.maxScore * 100;
+                const percent = g.score_c / g.maxScore_c * 100;
                 return percent >= 80 && percent < 90;
               }).length}
             </div>
@@ -204,15 +204,15 @@ const Grades = () => {
           <div className="text-center">
             <div className="text-2xl font-bold text-yellow-600">
               {grades.filter(g => {
-                const percent = g.score / g.maxScore * 100;
+                const percent = g.score_c / g.maxScore_c * 100;
                 return percent >= 70 && percent < 80;
               }).length}
             </div>
             <p className="text-sm text-gray-600">C Grades (70-79%)</p>
           </div>
-<div className="text-center">
+          <div className="text-center">
             <div className="text-2xl font-bold text-red-600">
-              {grades.filter(g => (g.score / g.maxScore * 100) < 70).length}
+              {grades.filter(g => (g.score_c / g.maxScore_c * 100) < 70).length}
             </div>
             <p className="text-sm text-gray-600">Below C (&lt;70%)</p>
           </div>

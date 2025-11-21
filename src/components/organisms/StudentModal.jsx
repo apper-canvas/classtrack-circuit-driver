@@ -26,7 +26,7 @@ const StudentModal = ({ student, isOpen, onClose, onSave, createMode = false }) 
 
   useEffect(() => {
     if (student) {
-      setFormData({
+setFormData({
         firstName_c: student.firstName_c || "",
         lastName_c: student.lastName_c || "",
         email_c: student.email_c || "",
@@ -77,7 +77,7 @@ const StudentModal = ({ student, isOpen, onClose, onSave, createMode = false }) 
   };
 
   const handleCancel = () => {
-    setFormData({
+setFormData({
       firstName_c: student?.firstName_c || "",
       lastName_c: student?.lastName_c || "",
       email_c: student?.email_c || "",
@@ -97,18 +97,18 @@ const StudentModal = ({ student, isOpen, onClose, onSave, createMode = false }) 
           <div className="flex items-center justify-between p-6 border-b border-gray-200">
             <div className="flex items-center space-x-4">
               <Avatar
-                src={student?.photo_c?.[0]?.url}
+src={student?.photo_c?.[0]?.url}
                 alt={createMode ? "New Student" : `${student?.firstName_c} ${student?.lastName_c}`}
                 size="xl"
                 fallback={createMode ? "NS" : `${student?.firstName_c?.[0] || ""}${student?.lastName_c?.[0] || ""}`}
               />
               <div>
                 <h3 className="text-lg font-semibold text-gray-900">
-                  {createMode ? "New Student" : `${student?.firstName_c} ${student?.lastName_c}`}
+{createMode ? "New Student" : `${student?.firstName_c} ${student?.lastName_c}`}
                 </h3>
-                {!createMode && <p className="text-gray-500">Student ID: {student?.Id}</p>}
+{!createMode && <p className="text-gray-500">Student ID: {student?.Id}</p>}
                 {!createMode && (
-                  <Badge variant={student?.status_c === "active" ? "success" : "secondary"}>
+<Badge variant={student?.status_c === "active" ? "success" : "secondary"}>
                     {student?.status_c}
                   </Badge>
                 )}
@@ -174,7 +174,7 @@ const StudentModal = ({ student, isOpen, onClose, onSave, createMode = false }) 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
-                  <p className="text-sm text-gray-900">{student?.email_c}</p>
+<p className="text-sm text-gray-900">{student?.email_c}</p>
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
@@ -339,7 +339,7 @@ const StudentModal = ({ student, isOpen, onClose, onSave, createMode = false }) 
 
           {/* Footer */}
           <div className="flex items-center justify-between p-6 border-t border-gray-200">
-            <h2 className="text-xl font-semibold text-gray-900">
+<h2 className="text-xl font-semibold text-gray-900">
               {createMode ? "Add New Student" : `${student?.firstName_c} ${student?.lastName_c}`}
             </h2>
           </div>

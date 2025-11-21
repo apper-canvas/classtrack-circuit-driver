@@ -46,9 +46,9 @@ const Attendance = () => {
       
       // Update local attendance state
       setAttendance(prevAttendance => {
-        const existingIndex = prevAttendance.findIndex(a => 
-          a.studentId === attendanceData.studentId && 
-          a.date === attendanceData.date
+const existingIndex = prevAttendance.findIndex(a => 
+          a.studentId_c === attendanceData.studentId_c && 
+          a.date_c === attendanceData.date_c
         );
         
         if (existingIndex >= 0) {
@@ -70,12 +70,12 @@ const Attendance = () => {
     try {
       const csvData = [
         ["Student ID", "Student Name", "Date", "Status", "Notes"].join(","),
-        ...attendance.map(record => {
-          const student = students.find(s => s.Id.toString() === record.studentId);
+...attendance.map(record => {
+          const student = students.find(s => s.Id.toString() === record.studentId_c);
           return [
-            record.studentId,
-            student ? `${student.firstName} ${student.lastName}` : "Unknown",
-            record.date,
+            record.studentId_c,
+            student ? `${student.firstName_c} ${student.lastName_c}` : "Unknown",
+            record.date_c,
             record.status,
             record.notes || ""
           ].join(",");
@@ -100,11 +100,11 @@ const Attendance = () => {
 
   const markAllPresent = async () => {
     try {
-      const today = new Date().toISOString().split("T")[0];
-      const todayRecords = attendance.filter(a => a.date === today);
+const today = new Date().toISOString().split("T")[0];
+      const todayRecords = attendance.filter(a => a.date_c === today);
       
       for (const student of students) {
-        const existingRecord = todayRecords.find(a => a.studentId === student.Id.toString());
+        const existingRecord = todayRecords.find(a => a.studentId_c === student.Id);
         if (!existingRecord) {
           await handleAttendanceUpdate({
             studentId: student.Id.toString(),
@@ -148,10 +148,10 @@ const Attendance = () => {
   }
 
   // Calculate attendance statistics
-  const today = new Date().toISOString().split("T")[0];
+const today = new Date().toISOString().split("T")[0];
   const thisMonth = new Date().toISOString().substring(0, 7);
   
-  const todayAttendance = attendance.filter(a => a.date === today);
+  const todayAttendance = attendance.filter(a => a.date_c === today);
   const monthAttendance = attendance.filter(a => a.date.startsWith(thisMonth));
   
   const todayPresent = todayAttendance.filter(a => a.status === "present").length;
@@ -243,7 +243,7 @@ const Attendance = () => {
               <div>
                 <p className="text-sm font-medium text-gray-600">Absent Today</p>
                 <p className="text-2xl font-bold text-gray-900">
-                  {todayAttendance.filter(a => a.status === "absent").length}
+{todayAttendance.filter(a => a.status_c === "absent").length}
                 </p>
                 <p className="text-xs text-gray-500">Students absent</p>
               </div>

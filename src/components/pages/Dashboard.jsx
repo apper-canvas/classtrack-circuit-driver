@@ -59,32 +59,32 @@ const Dashboard = () => {
 
   // Calculate statistics
   const totalStudents = students.length;
-  const activeStudents = students.filter(s => s.status === "active").length;
+const activeStudents = students.filter(s => s.status_c === "active").length;
   
-  const averageGPA = grades.length > 0 
-    ? (grades.reduce((acc, grade) => acc + (grade.score / grade.maxScore * 4), 0) / grades.length).toFixed(2)
+const averageGPA = grades.length > 0 
+    ? (grades.reduce((acc, grade) => acc + (grade.score_c / grade.maxScore_c * 4), 0) / grades.length).toFixed(2)
     : "0.00";
 
   const today = new Date().toISOString().split("T")[0];
-  const todayAttendance = attendance.filter(a => a.date === today);
-  const presentToday = todayAttendance.filter(a => a.status === "present").length;
+const todayAttendance = attendance.filter(a => a.date_c === today);
+  const presentToday = todayAttendance.filter(a => a.status_c === "present").length;
   const attendanceRate = todayAttendance.length > 0 
     ? Math.round((presentToday / todayAttendance.length) * 100)
     : 100;
 
   // Recent activity
-  const recentGrades = grades
+const recentGrades = grades
     .slice()
-    .sort((a, b) => new Date(b.enteredDate) - new Date(a.enteredDate))
+    .sort((a, b) => new Date(b.enteredDate_c) - new Date(a.enteredDate_c))
     .slice(0, 5);
 
-  const recentActivity = recentGrades.map(grade => {
+const recentActivity = recentGrades.map(grade => {
     const student = students.find(s => s.Id.toString() === grade.studentId);
     return {
-      id: grade.Id,
+id: grade.Id,
       type: "grade",
-      message: `${student?.firstName} ${student?.lastName} received ${grade.score}% in ${grade.subject}`,
-      time: new Date(grade.enteredDate).toLocaleDateString(),
+      message: `${student?.firstName_c} ${student?.lastName_c} received ${grade.score_c}% in ${grade.subject_c}`,
+      time: new Date(grade.enteredDate_c).toLocaleDateString(),
       score: grade.score
     };
   });
@@ -269,23 +269,23 @@ const Dashboard = () => {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-2xl font-bold text-green-600">
-                {grades.filter(g => (g.score / g.maxScore * 100) >= 90).length}
+<div className="text-2xl font-bold text-green-600">
+                {grades.filter(g => (g.score_c / g.maxScore_c * 100) >= 90).length}
               </div>
               <p className="text-sm text-gray-600">A Grades (90%+)</p>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-blue-600">
                 {grades.filter(g => {
-                  const percent = g.score / g.maxScore * 100;
+                  const percent = g.score_c / g.maxScore_c * 100;
                   return percent >= 80 && percent < 90;
                 }).length}
               </div>
               <p className="text-sm text-gray-600">B Grades (80-89%)</p>
             </div>
 <div className="text-center">
-              <div className="text-2xl font-bold text-yellow-600">
-                {grades.filter(g => (g.score / g.maxScore * 100) < 80).length}
+<div className="text-2xl font-bold text-yellow-600">
+                {grades.filter(g => (g.score_c / g.maxScore_c * 100) < 80).length}
               </div>
               <p className="text-sm text-gray-600">Below B (&lt;80%)</p>
             </div>

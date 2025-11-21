@@ -14,10 +14,10 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
   const semesters = ["Fall 2024", "Spring 2024"];
 
   const getGrade = (studentId, subject, semester) => {
-    return grades.find(g => 
-      g.studentId === studentId && 
-      g.subject === subject && 
-      g.semester === semester
+return grades.find(g => 
+      g.studentId_c === parseInt(studentId) && 
+      g.subject_c === subject && 
+      g.semester_c === semester
     );
   };
 
@@ -32,14 +32,14 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
     if (!isNaN(score) && score >= 0 && score <= 100) {
       const existingGrade = getGrade(studentId, subject, semester);
       const gradeData = {
-        id: existingGrade ? existingGrade.id : Date.now(),
-        studentId,
-        subject,
-        semester,
-        score,
-        maxScore: 100,
-        weight: 1,
-        enteredDate: new Date().toISOString()
+id: existingGrade ? existingGrade.Id : Date.now(),
+        studentId_c: parseInt(studentId),
+        subject_c: subject,
+        semester_c: semester,
+        score_c: score,
+        maxScore_c: 100,
+        weight_c: 1,
+        enteredDate_c: new Date().toISOString()
       };
       onGradeUpdate?.(gradeData);
     }
@@ -53,18 +53,18 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
   };
 
   const calculateStudentAverage = (studentId) => {
-    const studentGrades = grades.filter(g => g.studentId === studentId);
+const studentGrades = grades.filter(g => g.studentId_c === parseInt(studentId));
     if (studentGrades.length === 0) return 0;
     return Math.round(
-      studentGrades.reduce((acc, grade) => acc + (grade.score / grade.maxScore * 100), 0) / studentGrades.length
+      studentGrades.reduce((acc, grade) => acc + (grade.score_c / grade.maxScore_c * 100), 0) / studentGrades.length
     );
   };
 
-  const calculateSubjectAverage = (subject, semester) => {
-    const subjectGrades = grades.filter(g => g.subject === subject && g.semester === semester);
+const calculateSubjectAverage = (subject, semester) => {
+    const subjectGrades = grades.filter(g => g.subject_c === subject && g.semester_c === semester);
     if (subjectGrades.length === 0) return 0;
     return Math.round(
-      subjectGrades.reduce((acc, grade) => acc + (grade.score / grade.maxScore * 100), 0) / subjectGrades.length
+      subjectGrades.reduce((acc, grade) => acc + (grade.score_c / grade.maxScore_c * 100), 0) / subjectGrades.length
     );
   };
 
@@ -103,21 +103,21 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
                       <td className="px-6 py-4 whitespace-nowrap sticky left-0 bg-inherit z-10 border-r border-gray-200">
                         <div className="flex items-center">
                           <Avatar
-                            src={student.photo}
-                            alt={`${student.firstName} ${student.lastName}`}
+src={student.photo_c?.[0]?.url}
+                            alt={`${student.firstName_c} ${student.lastName_c}`}
                             size="sm"
-                            fallback={`${student.firstName[0]}${student.lastName[0]}`}
+                            fallback={`${student.firstName_c?.[0] || 'N'}${student.lastName_c?.[0] || 'A'}`}
                           />
                           <div className="ml-3">
                             <div className="text-sm font-medium text-gray-900">
-                              {student.firstName} {student.lastName}
+                              {student.firstName_c} {student.lastName_c}
                             </div>
-                            <div className="text-sm text-gray-500">ID: {student.id}</div>
+                            <div className="text-sm text-gray-500">ID: {student.Id}</div>
                           </div>
                         </div>
                       </td>
                       {subjects.map((subject) => {
-                        const grade = getGrade(student.id, subject, semester);
+const grade = getGrade(student.Id, subject, semester);
                         const cellKey = `${student.id}-${subject}-${semester}`;
                         const isEditing = editingCell === cellKey;
                         
@@ -134,7 +134,7 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
                                   max="100"
                                   onKeyDown={(e) => {
                                     if (e.key === "Enter") {
-                                      handleCellSave(student.id, subject, semester);
+handleCellSave(student.Id, subject, semester);
                                     } else if (e.key === "Escape") {
                                       handleCellCancel();
                                     }
@@ -143,7 +143,7 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
                                 />
                                 <div className="flex space-x-1">
                                   <button
-                                    onClick={() => handleCellSave(student.id, subject, semester)}
+onClick={() => handleCellSave(student.Id, subject, semester)}
                                     className="p-1 text-green-600 hover:bg-green-100 rounded"
                                   >
                                     <ApperIcon name="Check" size={14} />
@@ -158,11 +158,11 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
                               </div>
                             ) : (
                               <div
-                                onClick={() => handleCellClick(student.id, subject, semester)}
+onClick={() => handleCellClick(student.Id, subject, semester)}
                                 className="cursor-pointer hover:bg-gray-100 p-2 rounded transition-colors duration-200 flex justify-center"
                               >
-                                {grade ? (
-                                  <GradeIndicator score={grade.score} maxScore={grade.maxScore} showBadge={false} size="sm" />
+{grade ? (
+                                  <GradeIndicator score={grade.score_c} maxScore={grade.maxScore_c} showBadge={false} size="sm" />
                                 ) : (
                                   <span className="text-gray-400 text-sm">-</span>
                                 )}
@@ -173,7 +173,7 @@ const GradeTable = ({ students, grades, onGradeUpdate }) => {
                       })}
                       <td className="px-6 py-4 whitespace-nowrap text-center">
                         <GradeIndicator 
-                          score={calculateStudentAverage(student.id)} 
+score={calculateStudentAverage(student.Id)}
                           showBadge={false} 
                           size="sm" 
                         />
