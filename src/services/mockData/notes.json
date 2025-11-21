@@ -1,0 +1,72 @@
+[
+  {
+    "Id": 1,
+    "studentId": "1",
+    "content": "Excellent participation in class discussions. Shows strong analytical thinking skills.",
+    "category": "Academic",
+    "createdDate": "2024-11-15T09:30:00.000Z"
+  },
+  {
+    "Id": 2,
+    "studentId": "1",
+    "content": "Completed extra credit assignment on time. Very organized student.",
+    "category": "Assignment",
+    "createdDate": "2024-11-20T14:15:00.000Z"
+  },
+  {
+    "Id": 3,
+    "studentId": "2",
+    "content": "Outstanding performance in math competitions. Natural problem solver.",
+    "category": "Achievement",
+    "createdDate": "2024-11-10T11:45:00.000Z"
+  },
+  {
+    "Id": 4,
+    "studentId": "2",
+    "content": "Could improve on time management for assignments. Tends to procrastinate.",
+    "category": "Behavior",
+    "createdDate": "2024-11-25T16:20:00.000Z"
+  },
+  {
+    "Id": 5,
+    "studentId": "3",
+    "content": "Great leadership skills shown during group projects. Helps other students.",
+    "category": "Social",
+    "createdDate": "2024-11-18T13:10:00.000Z"
+  },
+  {
+    "Id": 6,
+    "studentId": "3",
+    "content": "Missed assignment due to illness. Will need to make up work.",
+    "category": "Assignment",
+    "createdDate": "2024-12-02T08:00:00.000Z"
+  },
+  {
+    "Id": 7,
+    "studentId": "4",
+    "content": "Excellent sportsmanship in PE class. Team player attitude.",
+    "category": "Physical Education",
+    "createdDate": "2024-11-22T10:30:00.000Z"
+  },
+  {
+    "Id": 8,
+    "studentId": "5",
+    "content": "Shows artistic talent in creative assignments. Very imaginative.",
+    "category": "Creative",
+    "createdDate": "2024-11-12T15:45:00.000Z"
+  },
+  {
+    "Id": 9,
+    "studentId": "6",
+    "content": "Exceptional work in science fair project. Shows real passion for research.",
+    "category": "STEM",
+    "createdDate": "2024-11-28T12:00:00.000Z"
+  },
+  {
+    "Id": 10,
+    "studentId": "7",
+    "content": "Strong debate skills. Very articulate and well-prepared for discussions.",
+    "category": "Communication",
+    "createdDate": "2024-11-14T14:30:00.000Z"
+  }
+]

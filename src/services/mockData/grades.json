@@ -1,0 +1,202 @@
+[
+  {
+    "Id": 1,
+    "studentId": "1",
+    "subject": "Mathematics",
+    "semester": "Fall 2024",
+    "score": 92,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 2,
+    "studentId": "1",
+    "subject": "Science",
+    "semester": "Fall 2024",
+    "score": 88,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 3,
+    "studentId": "1",
+    "subject": "English",
+    "semester": "Fall 2024",
+    "score": 95,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 4,
+    "studentId": "2",
+    "subject": "Mathematics",
+    "semester": "Fall 2024",
+    "score": 96,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 5,
+    "studentId": "2",
+    "subject": "Science",
+    "semester": "Fall 2024",
+    "score": 91,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 6,
+    "studentId": "2",
+    "subject": "English",
+    "semester": "Fall 2024",
+    "score": 89,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 7,
+    "studentId": "3",
+    "subject": "Mathematics",
+    "semester": "Fall 2024",
+    "score": 84,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 8,
+    "studentId": "3",
+    "subject": "Science",
+    "semester": "Fall 2024",
+    "score": 87,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 9,
+    "studentId": "3",
+    "subject": "English",
+    "semester": "Fall 2024",
+    "score": 92,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 10,
+    "studentId": "4",
+    "subject": "Mathematics",
+    "semester": "Fall 2024",
+    "score": 90,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 11,
+    "studentId": "4",
+    "subject": "Science",
+    "semester": "Fall 2024",
+    "score": 85,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 12,
+    "studentId": "4",
+    "subject": "English",
+    "semester": "Fall 2024",
+    "score": 88,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 13,
+    "studentId": "5",
+    "subject": "Mathematics",
+    "semester": "Fall 2024",
+    "score": 79,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 14,
+    "studentId": "5",
+    "subject": "Science",
+    "semester": "Fall 2024",
+    "score": 82,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 15,
+    "studentId": "5",
+    "subject": "English",
+    "semester": "Fall 2024",
+    "score": 85,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 16,
+    "studentId": "6",
+    "subject": "Mathematics",
+    "semester": "Fall 2024",
+    "score": 94,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 17,
+    "studentId": "6",
+    "subject": "Science",
+    "semester": "Fall 2024",
+    "score": 97,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 18,
+    "studentId": "6",
+    "subject": "English",
+    "semester": "Fall 2024",
+    "score": 91,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 19,
+    "studentId": "7",
+    "subject": "Mathematics",
+    "semester": "Fall 2024",
+    "score": 87,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  },
+  {
+    "Id": 20,
+    "studentId": "7",
+    "subject": "Science",
+    "semester": "Fall 2024",
+    "score": 89,
+    "maxScore": 100,
+    "weight": 1,
+    "enteredDate": "2024-11-01T10:00:00.000Z"
+  }
+]

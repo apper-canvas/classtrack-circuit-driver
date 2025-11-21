@@ -1,0 +1,112 @@
+[
+  {
+    "Id": 1,
+    "firstName": "Emma",
+    "lastName": "Johnson",
+    "email": "emma.johnson@email.com",
+    "phone": "(555) 123-4567",
+    "photo": "https://images.unsplash.com/photo-1494790108755-2616c240e04a?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-01-15",
+    "status": "active",
+    "tags": ["Honor Roll", "Science Club"]
+  },
+  {
+    "Id": 2,
+    "firstName": "James",
+    "lastName": "Smith",
+    "email": "james.smith@email.com",
+    "phone": "(555) 234-5678",
+    "photo": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-01-20",
+    "status": "active",
+    "tags": ["Math Team", "Chess Club"]
+  },
+  {
+    "Id": 3,
+    "firstName": "Olivia",
+    "lastName": "Davis",
+    "email": "olivia.davis@email.com",
+    "phone": "(555) 345-6789",
+    "photo": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-02-01",
+    "status": "active",
+    "tags": ["Drama Club", "Student Council"]
+  },
+  {
+    "Id": 4,
+    "firstName": "William",
+    "lastName": "Wilson",
+    "email": "william.wilson@email.com",
+    "phone": "(555) 456-7890",
+    "photo": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-02-10",
+    "status": "active",
+    "tags": ["Basketball", "Honor Roll"]
+  },
+  {
+    "Id": 5,
+    "firstName": "Sophia",
+    "lastName": "Miller",
+    "email": "sophia.miller@email.com",
+    "phone": "(555) 567-8901",
+    "photo": "https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-02-15",
+    "status": "active",
+    "tags": ["Art Club", "Yearbook"]
+  },
+  {
+    "Id": 6,
+    "firstName": "Benjamin",
+    "lastName": "Brown",
+    "email": "benjamin.brown@email.com",
+    "phone": "(555) 678-9012",
+    "photo": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-03-01",
+    "status": "active",
+    "tags": ["Science Fair", "Robotics"]
+  },
+  {
+    "Id": 7,
+    "firstName": "Charlotte",
+    "lastName": "Garcia",
+    "email": "charlotte.garcia@email.com",
+    "phone": "(555) 789-0123",
+    "photo": "https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-03-10",
+    "status": "active",
+    "tags": ["Debate Team", "NHS"]
+  },
+  {
+    "Id": 8,
+    "firstName": "Alexander",
+    "lastName": "Rodriguez",
+    "email": "alexander.rodriguez@email.com",
+    "phone": "(555) 890-1234",
+    "photo": "https://images.unsplash.com/photo-1463453091185-61582044d556?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-03-20",
+    "status": "active",
+    "tags": ["Soccer", "Language Club"]
+  },
+  {
+    "Id": 9,
+    "firstName": "Amelia",
+    "lastName": "Martinez",
+    "email": "amelia.martinez@email.com",
+    "phone": "(555) 901-2345",
+    "photo": "https://images.unsplash.com/photo-1489424731084-a5d8b219a5bb?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-04-01",
+    "status": "active",
+    "tags": ["Band", "Volunteer Club"]
+  },
+  {
+    "Id": 10,
+    "firstName": "Michael",
+    "lastName": "Anderson",
+    "email": "michael.anderson@email.com",
+    "phone": "(555) 012-3456",
+    "photo": "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150&h=150&fit=crop&crop=face",
+    "enrollmentDate": "2024-04-15",
+    "status": "active",
+    "tags": ["Track Team", "Computer Club"]
+  }
+]
