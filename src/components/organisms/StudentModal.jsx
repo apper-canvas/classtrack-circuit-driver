@@ -274,20 +274,20 @@ const handleSave = () => {
           <div className="flex items-center space-x-2">
 {activeTab === "info" && (
               <>
-{editMode || createMode ? (
+                {(editMode || createMode) ? (
                   <>
                     <Button variant="outline" size="sm" onClick={handleCancel}>
                       Cancel
                     </Button>
-<Button size="sm" onClick={handleSave}>
+                    <Button size="sm" onClick={handleSave}>
                       {createMode ? "Create Student" : "Save Changes"}
                     </Button>
                   </>
-) : !createMode ? (
+                ) : (
                   <Button size="sm" onClick={() => setEditMode(true)} icon="Edit">
                     Edit
                   </Button>
-                ) : null}
+                )}
               </>
             )}
             <button
